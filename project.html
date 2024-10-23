@@ -39,6 +39,8 @@
             padding: 20px;
             border-left: 5px solid #4CAF50;
             box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+
+
         }
 
         .text-container-2 {
@@ -49,6 +51,7 @@
             padding: 20px;
             border-left: 5px solid #4CAF50;
             box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+
         }
 
         h2 {
@@ -206,6 +209,11 @@
         <button id="collapseButton" onclick="toggleSummaryBox()">Click to collapse production table</button>
     </div>
 
+
+
+
+
+    
     <script>
         const generateCupButton = document.getElementById('generateCupButton');
         const imageContainer = document.getElementById('imageContainer');
@@ -225,6 +233,11 @@
         function Lock() {
             const numCups = document.querySelectorAll('#imageContainer img').length;
             const carbonProduced = (numCups * 1.22).toFixed(2);
+            
+            const fadeElements2 = document.querySelectorAll('.text-container-2');
+            fadeElements2.forEach((el) => {
+                el.style.display="block";
+            });
 
             // Hide the right-side and left-side container
             document.querySelector('.container').style.display = 'none';
