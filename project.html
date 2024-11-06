@@ -3,9 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-
     <title>Carbon Sequestration Article Finished</title>
     <style>
         body {
@@ -158,145 +155,103 @@
 <body>
 
     <div class="container">
-        <div class="left-side">
+        <div class="left-side" id="leftSide">
             <div class="text-container fade discriminator">
                 <h2>Introduction to the Ceramic Cup Company</h2>
                 <p>Welcome to our innovative ceramic cup company...</p>
             </div>
-            
-            <div class="text-container fade discriminator">
-                <h2>The Common Oversights within Simple Industries</h2>
-                <p>Many industries overlook the environmental impact of their operations...</p>
-            </div>
-            
-            <div class="text-container fade discriminator">
-                <h2>A Funny Way to Segway into Ownership</h2>
-                <p>So, picture this: I stumbled upon the ceramic cup company...</p>
-            </div>
-
-            <div class="text-container-2">
-                <h2>Understanding Carbon Sequestration</h2>
-                <p>Carbon sequestration is the process of capturing and storing atmospheric carbon dioxide...</p>
-            </div>
-
-            <div class="text-container-2">
-                <h2>How Trees Help</h2>
-                <p>Trees absorb CO2 during photosynthesis...</p>
-            </div>
-
-            <div class="text-container-2">
-                <h2>The Impact of Planting Trees</h2>
-                <p>Planting trees can significantly offset carbon emissions and combat climate change...</p>
-            </div>
+            <button id="toSecondStateButton">To second state</button>
         </div>
 
-        <!-- Right side - Cup Generation -->
-        <div class="right-side">
+        <div class="right-side" id="rightSide">
             <h3>Produce a cup!</h3>
             <button id="generateCupButton">Generate Cup</button>
             <div class="image-container" id="imageContainer"></div>
-            <button id="confirmButton" onclick="Lock()">Confirm your selection</button>  
+            <button id="confirmButton" onclick="Lock()">Confirm your selection</button>
         </div>
     </div>
 
-    <!-- Title and subtitle -->
-    <div id="productionTitle">
+    <div id="productionTitle" style="display: none; opacity: 0;">
         <h1>We have completed our annual production cycle! Now, let's see how to sequester the emissions from our production!</h1>
         <p><em>Click the box on the bottom right to review the cup count and how much carbon was emitted</em></p>
         <button id="returnButton" onclick="returnToArticle()">Return to the article</button>
     </div>
 
-    <!-- Sticky Summary Box -->
     <div id="stickySummaryBox" class="sticky-box">
         <p id="summaryText">No. of cups: 0<br>CO2 Emitted: 0 kg</p>
         <button id="collapseButton" onclick="toggleSummaryBox()">Click to collapse production table</button>
     </div>
 
-
-
-
-
-    
     <script>
+        const leftSide = document.getElementById('leftSide');
+        const rightSide = document.getElementById('rightSide');
         const generateCupButton = document.getElementById('generateCupButton');
         const imageContainer = document.getElementById('imageContainer');
         const stickyBox = document.getElementById('stickySummaryBox');
 
-        // Add new cups when "Generate Cup" button is clicked
+        // Show right-side and align sections when "To second state" is clicked
+        document.getElementById('toSecondStateButton').addEventListener('click', () => {
+            rightSide.style.display = 'block';  // Show right side
+            document.querySelector('.container').style.justifyContent = 'space-between';  // Adjust layout
+        });
+
         generateCupButton.addEventListener('click', () => {
             const img = document.createElement('img');
             img.src = 'https://img.lovepik.com/png/20231019/Steaming-delicious-coffee-and-white-cup-drink-grease_266398_wh1200.png';
             img.alt = 'Cup Image';
-            img.style.width = '100px'; // Fixed width for cup images
-            img.style.height = 'auto'; // Auto height for aspect ratio
+            img.style.width = '100px';
+            img.style.height = 'auto';
             imageContainer.appendChild(img);
         });
 
-        // Function to lock selection and show the sticky summary box
         function Lock() {
             const numCups = document.querySelectorAll('#imageContainer img').length;
             const carbonProduced = (numCups * 1.22).toFixed(2);
             
             const fadeElements2 = document.querySelectorAll('.text-container-2');
-            fadeElements2.forEach((el) => {
-                el.style.display="block";
-            });
+            fadeElements2.forEach((el) => el.style.display = "block");
 
-            // Hide the right-side and left-side container
             document.querySelector('.container').style.display = 'none';
             
-            // Show title
             const productionTitle = document.getElementById('productionTitle');
             productionTitle.style.display = 'block';
-            productionTitle.style.opacity = 1; // Fade in the title
+            productionTitle.style.opacity = 1;
             
-
-
-            // Show sticky summary box
             stickyBox.style.display = 'block';
             document.getElementById('summaryText').innerHTML = `No. of cups: ${numCups}<br>CO2 Emitted: ${carbonProduced} kg`;
         }
 
-        // Return to the article from the title
         function returnToArticle() {
             const productionTitle = document.getElementById('productionTitle');
-            productionTitle.style.opacity = 0; // Fade out the titlert
+            productionTitle.style.opacity = 0;
             setTimeout(() => {
-                productionTitle.style.display = 'none'; // Hide the title after fade out
-                document.querySelector('.container').style.display = 'flex'; // Bring back the article
-            }, 1000); // Wait for fade-out duration
+                productionTitle.style.display = 'none';
+                document.querySelector('.container').style.display = 'flex';
+            }, 1000);
         }
 
-        // Toggle collapse/expand of the sticky summary box
         function toggleSummaryBox() {
             const stickyContent = document.getElementById('summaryText');
             const collapseButton = document.getElementById('collapseButton');
             
             if (stickyContent.style.display === 'none') {
                 stickyContent.style.display = 'block';
-                stickyBox.style.height = 'auto'; // Reset height
-                stickyBox.style.padding = '10px'; // Reset padding
+                stickyBox.style.height = 'auto';
+                stickyBox.style.padding = '10px';
                 collapseButton.textContent = 'Collapse production table';
             } else {
                 stickyContent.style.display = 'none';
-                stickyBox.style.height = '40px'; // Only show the button
-                stickyBox.style.padding = '5px'; // Small padding
+                stickyBox.style.height = '40px';
+                stickyBox.style.padding = '5px';
                 collapseButton.textContent = 'Click to see your production table';
             }
         }
 
-        // Initial check on page load for scroll visibility
         document.addEventListener('scroll', () => {
-            const fadeElements = document.querySelectorAll('.text-container');
-            const fadeElements2 = document.querySelectorAll('.text-container-2');
+            const fadeElements = document.querySelectorAll('.text-container, .text-container-2');
             const viewportHeight = window.innerHeight;
 
             fadeElements.forEach((el) => {
-                const elementTop = el.getBoundingClientRect().top;
-                el.style.opacity = (elementTop < viewportHeight && elementTop > 0) ? 1 : 0;
-            });
-
-            fadeElements2.forEach((el) => {
                 const elementTop = el.getBoundingClientRect().top;
                 el.style.opacity = (elementTop < viewportHeight && elementTop > 0) ? 1 : 0;
             });
@@ -304,6 +259,5 @@
 
         document.dispatchEvent(new Event('scroll'));
     </script>
-    
 </body>
 </html>
